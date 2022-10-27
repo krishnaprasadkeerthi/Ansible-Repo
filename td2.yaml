@@ -1,0 +1,9 @@
+---
+- hosts: tomcat
+  become: True
+  tasks:
+      - name: Delpoy into Tomcat
+        copy:
+           src: /var/lib/jenkins/workspace/deployTomcat/target/maven-web-application.war
+           dest: /opt/apache-tomcat-9.0.68/webapps/maven-web-application.war
+...
