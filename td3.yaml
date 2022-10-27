@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  become_user: root
+  vars:
+    URL_ART: http://13.126.249.215:8081/kpdevops/repository/kpdevops1-snapshot/com/mt/maven-web-application/0.0.1-SNAPSHOT/maven-web-application-0.0.1-20221026.121226-147.war
+    URL_TOM: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.zip"
+    URL_TOMZIP: "{{ URL_TOM.split('/') | last }}"
+  tasks:
+   - name: Download Tomcat 9
+     get_url:
+       url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.zip
+       dest: /opt
+   - name: Extracting the Zip file to /opt
+     unarchive:
+       src: /opt/apache-tomcat-9.0.68.zip
+       dest: /opt
+       remote_src: true
+   - name: Download the Tomcat Artifact
+     get_url:
+       url: http://13.126.249.215:8081/kpdevops/repository/kpdevops1-snapshot/com/mt/maven-web-application/0.0.1-SNAPSHOT/maven-web-application-0.0.1-20221027.085316-171.war
+       dest: /opt/target/
+   - name: Download the Tomcat Artifact
+     copy:
+       src: /opt/target/maven-web-application-0.0.1-20221027.085316-171.war
+       dest: /opt/apache-tomcat-9.0.68/webapps/
+       remote_src: yes
+...
