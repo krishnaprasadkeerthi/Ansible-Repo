@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  become_user: ansible 
+  vars:
+    URL_ART: http://13.126.249.215:8081/kpdevops/repository/kpdevops1-snapshot/ com/mt/maven-web-application/0.0.1-SNAPSHOT/maven-web-application-0.0.1-20221026.121226-147.war
+    URL_TOM: "https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.zip"
+    URL_TOMZIP: "{{ URL_TOM.split('/') | last }}"
+  tasks:
+   - name: Download Tomcat 9 
+     get_url:
+       url: "{{ URL_TOM }}"
+       dest: ./
+   - name: Extracting the Zip file to /opt
+     unarchive:
+       src: ./{{ URL_TOMZIP }}
+       dest: ./
+       remote_src: true
+   - name: Download the Tomcat Artifact
+     copy:
+       src: ./maven-web-application-0.0.1-20221026.121226-147.war
+       dest: ./apache-tomcat-9.0.68/webapps/
+   - name: Start the Tomcat
+       shell: sudo sh apache-tomcat-9.0.68/bin/catalina.sh start
+...
