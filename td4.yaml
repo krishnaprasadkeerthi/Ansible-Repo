@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Creating file in the host machines
+      file:
+        path: /tmp/kp.yaml
+        owner: root
+        group: root
+        mode: 0755
+        state: touch
+...
