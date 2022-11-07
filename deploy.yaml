@@ -1,14 +1,17 @@
 ---
 - hosts: all
   become: true
+  vars_files:
+     - /etc/ansible/cred.yaml
   tasks:
     - name: Download the war file from Nexus Repository
       maven_artifact:
         group_id: com.mt 
         artifact_id: maven-web-application
-        version: "{{ versionToBeDownloaded }}"
+        extension: war
         repository_url: 'http://13.126.249.215:8081/kpdevops/repository/kpdevops1-snapshot/'
-        username: kpdevops
-        password: kpdevops
+        version: "{{ versionToBeDownloaded }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
         dest: /opt/apache-tomcat-9.0.68/webapps/maven-web-application.war
 ...
