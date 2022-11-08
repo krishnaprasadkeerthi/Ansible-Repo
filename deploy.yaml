@@ -13,5 +13,4 @@
         version: "{{ versionToBeDownloaded }}"
         username: "{{ username }}"
         password: "{{ password }}"
-        dest: /opt/apache-tomcat-9.0.68/webapps/maven-web-application.war
-...
+        dest: /opt/apache-tomcat-9.0.68/webapps/
