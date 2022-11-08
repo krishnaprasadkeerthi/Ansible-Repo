@@ -9,7 +9,7 @@
         group_id: com.mt 
         artifact_id: maven-web-application
         extension: war
-        repository_url: 'http://13.126.249.215:8081/kpdevops/repository/kpdevops1-snapshot/'  
+        repository_url: 'http://13.126.249.215:8081/kpdevops/repository/kpdevops1-release/'  
         version: "{{ versionToBeDownloaded }}"
         username: "{{ username }}"
         password: "{{ password }}"
